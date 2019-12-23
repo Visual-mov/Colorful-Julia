@@ -1,4 +1,5 @@
 # Colorful Julia Twitter Bot
+<img src="saves/image_12222019_203050.png" alt="Julia set" width="250"/>
 Colorful Julia is a Twitter bot that tweets random Julia sets with different colorization. Along with the image itself, the tweet also includes information about the rendered Julia set, such as the maximum amount of iterations, value of c, and the colorization method. Colorful Julia uses the tweepy wrapper to communicate with the Twitter API.
 
 Go check out the bot: https://twitter.com/colorjulia_bot
