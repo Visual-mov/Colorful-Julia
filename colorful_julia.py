@@ -18,10 +18,10 @@ COLOR_MODES = ("rand_color", "rand_pattern", "rand_glow")
 
 # Twitter API
 # REPLACE WITH YOUR OWN KEYS
-key = "rw2HSv43rXegHzE9waeAAAzJZ"
-key_secret = "BUhErximdlCOTIji97heDUsY1Ll4142XwkqGaIYUTy2lEN5s1L"
-token = "1205741908590383104-zUg0S1qE8JHzTzE4DX634sqSomry4t"
-token_secret = "ke3TScAe7suDsEZFfpmdg67L65b3ItacG2uLOnOyBsVlg"
+key = ""
+key_secret = ""
+token = ""
+token_secret = ""
 
 def main(argv):
     date_img = False
