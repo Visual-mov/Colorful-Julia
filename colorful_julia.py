@@ -1,12 +1,11 @@
 from juliaset import JuliaSet
 from random import uniform, randint
 from time import tzname
-import sys
-import tweepy
+import sys, os, tweepy
 
 # Colorful Julia Twitter bot
 # Copywrite(c) Ryan Danver 2019
-# Go check out the bot: https://twitter.com/colorjulia_bot
+# Check out the bot! https://twitter.com/colorjulia_bot
 
 # Parameters
 C_LIMIT = (-1,1)
@@ -16,16 +15,9 @@ ZOOM = 1.8
 
 COLOR_MODES = ("rand_color", "rand_pattern", "rand_glow")
 
-# Twitter API
-# REPLACE WITH YOUR OWN KEYS
-key = ""
-key_secret = ""
-token = ""
-token_secret = ""
-
 def main(argv):
     date_img = False
-    tweet_img = True
+    tweet_img = False
     path = "saves"
     if len(argv)-1 > 0:
         i = 1
@@ -50,15 +42,29 @@ def main(argv):
     set.saveImage(path)
 
     if tweet_img:
-        auth = tweepy.OAuthHandler(key,key_secret)
-        auth.set_access_token(token,token_secret)
+        keys = getkeys(tweet_img)
+        auth = tweepy.OAuthHandler(keys[0],keys[1])
+        auth.set_access_token(keys[2],keys[3])
         api = tweepy.API(auth)
         try:
             status = f"Julia set generated on {set.date_stamp} at {set.time_stamp} {tzname[0]}\nIterations: {ITERATIONS}\nColoring mode: \"{set.c_mode}\"\nc = {ca} + {cb}i"
             api.update_with_media(f"{path}/{set.file_name}",status)
             print("Successfully tweeted.")
         except tweepy.TweepError as e:
-            print(e.reason)
+            print(f'Tweepy error:\n  {e.reason}')
+
+def getkeys(tweet_img):
+    keys = [''] * 4
+    if not tweet_img: return keys
+    try: 
+        lines = open("keys.txt",'r').readlines()
+        for i in range(len(lines)):
+            if i < len(keys): keys[i] = lines[i]
+    except FileNotFoundError:
+        print("keys.txt not found. Please see README.md")
+        exit()
+    keys = [key.replace('\n','') for key in keys]
+    return keys 
 
 if __name__ == "__main__":
     main(sys.argv)
