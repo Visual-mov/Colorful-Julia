@@ -18,7 +18,7 @@ COLOR_MODES = ("rand_color", "rand_pattern", "rand_glow")
 def main(argv):
     date_img = False
     tweet_img = True
-    path = "saves"
+    img_path = "saves"
     if len(argv)-1 > 0:
         i = 1
         while i < len(argv):
@@ -29,7 +29,7 @@ def main(argv):
             elif argv[i] == "--path":
                 if i != len(argv)-1:
                     i+=1
-                    path = argv[i]
+                    img_path = argv[i]
             else:
                 print("Unknown parameter: " + argv[i])
                 exit()
@@ -39,7 +39,7 @@ def main(argv):
     cb = uniform(C_LIMIT[0],C_LIMIT[1])
     set = JuliaSet(ca, cb, WIDTH, HEIGHT, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
     set.genImage(ITERATIONS, ZOOM)
-    set.saveImage(path)
+    set.saveImage(img_path)
 
     if tweet_img:
         keys = getkeys(tweet_img)
@@ -57,7 +57,7 @@ def getkeys(tweet_img):
     keys = [''] * 4
     if not tweet_img: return keys
     try: 
-        lines = open("keys.txt",'r').readlines()
+        lines = open(f"{os.path.dirname(os.path.realpath(__file__))}/keys.txt",'r').readlines()
         for i in range(len(lines)):
             if i < len(keys): keys[i] = lines[i]
     except FileNotFoundError:

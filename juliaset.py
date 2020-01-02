@@ -37,7 +37,7 @@ class JuliaSet:
                 self.draw.point((x,y), self.colorize(i, iter_per_pixel) if i != iter_per_pixel else (0,0,0))
 
     def saveImage(self,path):
-        self.generateName()
+        self.genName()
         print(f"{self.date_stamp} | {self.time_stamp} SAVED: {self.file_name}\nMODE: {self.c_mode}")
         if path != "saves" and not os.path.exists(path):
             os.mkdir(path)
@@ -45,7 +45,7 @@ class JuliaSet:
             os.mkdir("saves")
         self.image.save(f"{path}/{self.file_name}","PNG")
     
-    def generateName(self):
+    def genName(self):
         if self.date_img:
             self.file_name = f"image_{self.t.month}{self.t.day}{self.t.year}_{self.t.hour}{self.minutes}{self.t.second}.png"
         else: self.file_name = "image.png"
