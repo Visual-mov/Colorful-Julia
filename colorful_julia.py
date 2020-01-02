@@ -48,7 +48,7 @@ def main(argv):
         api = tweepy.API(auth)
         try:
             status = f"Julia set generated on {set.date_stamp} at {set.time_stamp} {tzname[0]}\nIterations: {ITERATIONS}\nColoring mode: \"{set.c_mode}\"\nc = {ca} + {cb}i"
-            api.update_with_media(f"{path}/{set.file_name}",status)
+            api.update_with_media(f"{img_path}/{set.file_name}",status)
             print("Successfully tweeted.")
         except tweepy.TweepError as e:
             print(f'Tweepy error:\n  {e.reason}')
