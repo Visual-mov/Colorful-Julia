@@ -9,7 +9,7 @@ import sys, os, tweepy
 
 # Parameters
 C_LIMIT = (-1,1)
-RESOLUTION = (1000,1000)
+(WIDTH, HEIGHT) = (1000,1000)
 ITERATIONS = 200
 ZOOM = 1.8
 
@@ -17,7 +17,7 @@ COLOR_MODES = ("rand_color", "rand_pattern", "rand_glow")
 
 def main(argv):
     date_img = False
-    tweet_img = False
+    tweet_img = True
     path = "saves"
     if len(argv)-1 > 0:
         i = 1
@@ -37,7 +37,7 @@ def main(argv):
 
     ca = uniform(C_LIMIT[0],C_LIMIT[1])
     cb = uniform(C_LIMIT[0],C_LIMIT[1])
-    set = JuliaSet(ca, cb, RESOLUTION, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
+    set = JuliaSet(ca, cb, WIDTH, HEIGHT, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
     set.genImage(ITERATIONS, ZOOM)
     set.saveImage(path)
 

@@ -5,16 +5,17 @@ from random import randint
 import os
 
 class JuliaSet:
-    def __init__(self, ca, cb, res, c_mode, date_img):
+    def __init__(self, ca, cb, w, h, c_mode, date_img):
         self.ca = ca
         self.cb = cb
-        self.res = res
+        self.w = w
+        self.h = h
         self.c_mode = c_mode
         self.date_img = date_img
-        self.image = Image.new("RGB",self.res)
+        self.image = Image.new("RGB",(w,h))
         self.draw = ImageDraw.Draw(self.image)
         self.colorbias = (self.rnd(20,200),self.rnd(20,200),self.rnd(20,200))
-        self.glow = (self.rnd(0,10),self.rnd(0,10),self.rnd(0,10))
+        self.glow = (self.rnd(0,20),self.rnd(0,20),self.rnd(0,20))
 
         self.t = datetime.now()
         self.minutes = self.t.minute if len(str(self.t.minute)) != 1 else "0" + str(self.t.minute)
@@ -22,10 +23,10 @@ class JuliaSet:
         self.time_stamp = f"{self.t.hour}:{self.minutes}"
 
     def genImage(self, iter_per_pixel, zoom):
-        for x in range(self.res[0]):
-            for y in range(self.res[1]):
-                za = self.translate(x,0,self.res[0],-zoom,zoom)
-                zb = self.translate(y,0,self.res[1],-zoom,zoom)
+        for x in range(self.w):
+            for y in range(self.h):
+                za = self.translate(x,0,self.w,-zoom,zoom)
+                zb = self.translate(y,0,self.h,-zoom,zoom)
                 i = 0
                 while i < iter_per_pixel:
                     tmp = 2 * za * zb

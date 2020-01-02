@@ -25,6 +25,7 @@ Run main script:
 
 **'--no_tweet'** - Will not tweet created image. No keys file is needed as well.
 
+### Location for API keys
 If you intend for the bot to tweet the created image, a file containing the keys and access tokens named 'keys.txt' is needed. This file should be located in the repository's root directory (./Colorful-Julia/keys.txt). 
 
 Formatting for this file is as follows, with each string separated by a newline:
