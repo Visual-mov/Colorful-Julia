@@ -14,8 +14,10 @@ class JuliaSet:
         self.date_img = date_img
         self.image = Image.new("RGB",(w,h))
         self.draw = ImageDraw.Draw(self.image)
-        self.colorbias = (self.rnd(20,200),self.rnd(20,200),self.rnd(20,200))
-        self.glow = (self.rnd(0,20),self.rnd(0,20),self.rnd(0,20))
+        
+        rnd = lambda a,b: randint(a,b)
+        self.colorbias = (rnd(20,200),rnd(20,200),rnd(20,200))
+        self.glow = (rnd(0,20),rnd(0,20),rnd(0,20))
 
         self.t = datetime.now()
         self.minutes = self.t.minute if len(str(self.t.minute)) != 1 else "0" + str(self.t.minute)
@@ -60,11 +62,8 @@ class JuliaSet:
         elif self.c_mode == "rand_glow":
             return (i*self.glow[0],i*self.glow[1],i*self.glow[2])
         else:
-            print(f"Unknown color mode: '{c_mode}'")
+            print(f"Unknown color mode: '{self.c_mode}'")
             exit()
-
-    def rnd(self,a,b):
-        return randint(a,b)
 
     def translate(self, value, leftMin, leftMax, rightMin, rightMax):
         return rightMin + (float(value - leftMin) / float(leftMax - leftMin) * (rightMax - rightMin))

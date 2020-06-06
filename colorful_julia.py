@@ -42,7 +42,7 @@ def main(argv):
     set.saveImage(img_path)
 
     if tweet_img:
-        keys = getkeys(tweet_img)
+        keys = list(getkeys())
         auth = tweepy.OAuthHandler(keys[0],keys[1])
         auth.set_access_token(keys[2],keys[3])
         api = tweepy.API(auth)
@@ -53,18 +53,15 @@ def main(argv):
         except tweepy.TweepError as e:
             print(f'Tweepy error:\n  {e.reason}')
 
-def getkeys(tweet_img):
-    keys = [''] * 4
-    if not tweet_img: return keys
+def getkeys():
     try: 
         lines = open(f"{os.path.dirname(os.path.realpath(__file__))}/keys.txt",'r').readlines()
         for i in range(len(lines)):
-            if i < len(keys): keys[i] = lines[i]
+            if i < 4:
+                yield lines[i].replace('\n','')
     except FileNotFoundError:
         print("keys.txt not found. Please see README.md")
         exit()
-    keys = [key.replace('\n','') for key in keys]
-    return keys 
 
 if __name__ == "__main__":
     main(sys.argv)
