@@ -12,6 +12,7 @@ C_LIMIT = (-1,1)
 (WIDTH, HEIGHT) = (1000,1000)
 ITERATIONS = 200
 ZOOM = 1.8
+DECIMALS = 4
 
 COLOR_MODES = ("rand_color", "rand_pattern", "rand_glow")
 
@@ -35,12 +36,12 @@ def main(argv):
                 exit()
             i+=1
 
-    ca = uniform(C_LIMIT[0],C_LIMIT[1])
-    cb = uniform(C_LIMIT[0],C_LIMIT[1])
+    ca = round(uniform(C_LIMIT[0],C_LIMIT[1]), DECIMALS)
+    cb = round(uniform(C_LIMIT[0],C_LIMIT[1]), DECIMALS)
     set = JuliaSet(ca, cb, WIDTH, HEIGHT, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
     set.genImage(ITERATIONS, ZOOM)
     set.saveImage(img_path)
-
+    
     if tweet_img:
         keys = list(getkeys())
         auth = tweepy.OAuthHandler(keys[0],keys[1])
