@@ -5,12 +5,12 @@ import sys, os, tweepy
 
 # Colorful Julia Twitter bot
 # Copywrite(c) Ryan Danver 2019
-# Check out the bot! https://twitter.com/colorjulia_bot
+# Check out the bot! -> https://twitter.com/colorjulia_bot
 
 # Parameters
 C_LIMIT = (-1,1)
 (WIDTH, HEIGHT) = (1000,1000)
-ITERATIONS = 200
+ITERATIONS = 150
 ZOOM = 1.8
 DECIMALS = 4
 
@@ -20,7 +20,7 @@ def main(argv):
     date_img = False
     tweet_img = True
     img_path = "saves"
-    if len(argv)-1 > 0:
+    if len(argv) > 1:
         i = 1
         while i < len(argv):
             if argv[i] == "--date_img":
@@ -38,10 +38,12 @@ def main(argv):
 
     ca = round(uniform(C_LIMIT[0],C_LIMIT[1]), DECIMALS)
     cb = round(uniform(C_LIMIT[0],C_LIMIT[1]), DECIMALS)
-    set = JuliaSet(ca, cb, WIDTH, HEIGHT, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
+    #COLOR_MODES[randint(0,len(COLOR_MODES)-1)]
+
+    set = JuliaSet(ca, cb, WIDTH, HEIGHT, "multi_color", date_img)
     set.genImage(ITERATIONS, ZOOM)
     set.saveImage(img_path)
-    
+
     if tweet_img:
         keys = list(getkeys())
         auth = tweepy.OAuthHandler(keys[0],keys[1])
@@ -52,7 +54,7 @@ def main(argv):
             api.update_with_media(f"{img_path}/{set.file_name}",status)
             print("Successfully tweeted.")
         except tweepy.TweepError as e:
-            print(f'Tweepy error:\n  {e.reason}')
+            print(f"Tweepy error:\n{e.reason}")
 
 def getkeys():
     try: 

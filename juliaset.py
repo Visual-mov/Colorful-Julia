@@ -14,10 +14,8 @@ class JuliaSet:
         self.date_img = date_img
         self.image = Image.new("RGB",(w,h))
         self.draw = ImageDraw.Draw(self.image)
-        
-        rnd = lambda a,b: randint(a,b)
-        self.colorbias = (rnd(20,200),rnd(20,200),rnd(20,200))
-        self.glow = (rnd(0,20),rnd(0,20),rnd(0,20))
+        self.colorbias = (randint(20,200), randint(20,200), randint(20,200))
+        self.glow = (randint(0,20), randint(0,20), randint(0,20))
 
         self.t = datetime.now()
         self.minutes = self.t.minute if len(str(self.t.minute)) != 1 else "0" + str(self.t.minute)
@@ -50,15 +48,15 @@ class JuliaSet:
     def genName(self):
         if self.date_img:
             self.file_name = f"image_{self.t.month}{self.t.day}{self.t.year}_{self.t.hour}{self.minutes}{self.t.second}.png"
-        else: self.file_name = "image.png"
+        else:
+            self.file_name = "image.png"
 
     def colorize(self, i, iter_per_pixel):
         if self.c_mode == "rand_color":
             c = int(self.translate(i,0,iter_per_pixel,0,255) * (i/4))
             return (c + self.colorbias[0],c + self.colorbias[1],c + self.colorbias[2])
         elif self.c_mode == "rand_pattern":
-            if i % 2 == 0: return self.colorbias
-            else: return (0,0,0)
+            return self.colorbias if i % 2 == 0 else (0,0,0)
         elif self.c_mode == "rand_glow":
             return (i*self.glow[0],i*self.glow[1],i*self.glow[2])
         else:
