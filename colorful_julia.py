@@ -14,7 +14,7 @@ ITER_RANGE = (50, 200)
 ZOOM = 1.8
 DECIMALS = 4
 
-COLOR_MODES = ("rand_color", "rand_pattern", "rand_glow")
+COLOR_MODES = ("rand_color", "rand_pattern", "rand_glow", "multi_color")
 
 def main(argv):
     date_img = False
@@ -40,7 +40,7 @@ def main(argv):
     cb = round(uniform(C_LIMIT[0],C_LIMIT[1]), DECIMALS)
 
     set = JuliaSet(ca, cb, WIDTH, HEIGHT, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
-    
+
     iterations = randint(ITER_RANGE[0],ITER_RANGE[1])
     set.genImage(iterations, ZOOM)
     set.saveImage(img_path)

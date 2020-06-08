@@ -12,7 +12,7 @@ class JuliaSet:
         self.h = h
         self.c_mode = c_mode
         self.date_img = date_img
-        self.image = Image.new("RGB",(w,h))
+        self.image = Image.new("HSV" if c_mode == "multi_color" else "RGB",(w,h))
         self.draw = ImageDraw.Draw(self.image)
         self.colorbias = (randint(20,200), randint(20,200), randint(20,200))
         self.glow = (randint(0,20), randint(0,20), randint(0,20))
@@ -23,27 +23,28 @@ class JuliaSet:
         self.time_stamp = f"{self.t.hour}:{self.minutes}"
 
     def genImage(self, iter_per_pixel, zoom):
-        self.iterations = iter_per_pixel
+        self.max_iter = iter_per_pixel
         for x in range(self.w):
             for y in range(self.h):
                 za = self.translate(x,0,self.w,-zoom,zoom)
                 zb = self.translate(y,0,self.h,-zoom,zoom)
                 i = 0
-                while i < self.iterations:
+                while i < self.max_iter:
                     tmp = 2 * za * zb
                     za = za * za - zb * zb + self.ca
                     zb = tmp + self.cb
                     if sqrt(za*za + zb*zb) > 4: break
                     i += 1
-                self.draw.point((x,y), self.colorize(i) if i != self.iterations else (0,0,0))
+                self.draw.point((x,y), self.colorize(i) if i != self.max_iter else (0,0,0))
 
     def saveImage(self,path):
         self.genName()
-        print(f"{self.date_stamp} | {self.time_stamp} SAVED: {self.file_name}\nMODE: {self.c_mode}\nITERATIONS: {self.iterations}")
+        print(f"{self.date_stamp} | {self.time_stamp} SAVED: {self.file_name}\nMODE: {self.c_mode}\nITERATIONS: {self.max_iter}")
         if path != "saves" and not os.path.exists(path):
             os.mkdir(path)
         elif not os.path.exists("saves"):
             os.mkdir("saves")
+        self.image = self.image.convert(mode="RGB")
         self.image.save(f"{path}/{self.file_name}","PNG")
     
     def genName(self):
@@ -54,12 +55,14 @@ class JuliaSet:
 
     def colorize(self, i):
         if self.c_mode == "rand_color":
-            c = int(self.translate(i,0,self.iterations,0,255) * (i/4))
-            return (c + self.colorbias[0],c + self.colorbias[1],c + self.colorbias[2])
+            c = int(self.translate(i,0,self.max_iter,0,255) * (i/4))
+            return (c + self.colorbias[0], c + self.colorbias[1], c + self.colorbias[2])
         elif self.c_mode == "rand_pattern":
             return self.colorbias if i % 2 == 0 else (0,0,0)
         elif self.c_mode == "rand_glow":
-            return (i*self.glow[0],i*self.glow[1],i*self.glow[2])
+            return (i*self.glow[0], i*self.glow[1], i*self.glow[2])
+        elif self.c_mode == "multi_color":
+            return (int(200*i/self.max_iter) + self.colorbias[0], 200, 255 if i != self.max_iter else 0)
         else:
             print(f"Unknown color mode: '{self.c_mode}'")
             exit()
