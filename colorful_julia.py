@@ -10,7 +10,7 @@ import sys, os, tweepy
 # Parameters
 C_LIMIT = (-1,1)
 (WIDTH, HEIGHT) = (1000,1000)
-ITERATIONS = 150
+ITER_RANGE = (50, 200)
 ZOOM = 1.8
 DECIMALS = 4
 
@@ -38,10 +38,11 @@ def main(argv):
 
     ca = round(uniform(C_LIMIT[0],C_LIMIT[1]), DECIMALS)
     cb = round(uniform(C_LIMIT[0],C_LIMIT[1]), DECIMALS)
-    #COLOR_MODES[randint(0,len(COLOR_MODES)-1)]
 
-    set = JuliaSet(ca, cb, WIDTH, HEIGHT, "multi_color", date_img)
-    set.genImage(ITERATIONS, ZOOM)
+    set = JuliaSet(ca, cb, WIDTH, HEIGHT, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
+    
+    iterations = randint(ITER_RANGE[0],ITER_RANGE[1])
+    set.genImage(iterations, ZOOM)
     set.saveImage(img_path)
 
     if tweet_img:
@@ -50,7 +51,7 @@ def main(argv):
         auth.set_access_token(keys[2],keys[3])
         api = tweepy.API(auth)
         try:
-            status = f"Julia set generated on {set.date_stamp} at {set.time_stamp} {tzname[0]}\nIterations: {ITERATIONS}\nColoring mode: \"{set.c_mode}\"\nc = {ca} + {cb}i"
+            status = f"Julia set generated on {set.date_stamp} at {set.time_stamp} {tzname[0]}\nIterations: {iterations}\nColoring mode: \"{set.c_mode}\"\nc = {ca} + {cb}i"
             api.update_with_media(f"{img_path}/{set.file_name}",status)
             print("Successfully tweeted.")
         except tweepy.TweepError as e:
