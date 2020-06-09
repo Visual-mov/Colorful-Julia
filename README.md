@@ -1,5 +1,5 @@
 # Colorful Julia Twitter Bot
-<img src="saves/image_12222019_203050.png" alt="Julia set" width="250"/>
+<img src="saves/save1.png" alt="Julia set" width="250"/>
 
 [Colorful Julia](https://botwiki.org/bot/colorful-julia/) is a Twitter bot that tweets random Julia sets. Along with the image itself, the tweet also includes information about the rendered Julia set. Such as the maximum amount of iterations, value of c, and the colorization method. Colorful Julia uses the tweepy wrapper to communicate with the Twitter API.
 
@@ -8,7 +8,7 @@
 ## Installation
 Clone repo:
 ``` 
-~$ git clone https://github.com/Visual-mov/ColorfulJulia
+~$ git clone https://github.com/Visual-mov/Colorful-Julia
 ```
 
 Install requirements:
@@ -43,3 +43,13 @@ Currently the bot is being hosted on a Raspberry Pi Zero. The main script is run
 ```
 */30 * * * * python3 ./Colorful-Julia/colorful_julia.py
 ```
+
+## Example Images
+<p>
+    <img src="saves/save2.png" width="250"/>
+    <img src="saves/save3.png" width="250"/>
+    <img src="saves/save4.png" width="250"/>
+    <img src="saves/save5.png" width="250"/>
+    <img src="saves/save6.png" width="250"/>
+    <img src="saves/save7.png" width="250"/>
+</p>
