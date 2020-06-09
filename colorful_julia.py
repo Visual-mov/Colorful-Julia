@@ -41,8 +41,8 @@ def main(argv):
 
     set = JuliaSet(ca, cb, WIDTH, HEIGHT, COLOR_MODES[randint(0,len(COLOR_MODES)-1)], date_img)
 
-    iterations = randint(ITER_RANGE[0],ITER_RANGE[1])
-    set.genImage(iterations, ZOOM)
+    max_iterations = randint(ITER_RANGE[0],ITER_RANGE[1])
+    set.genImage(max_iterations, ZOOM)
     set.saveImage(img_path)
 
     if tweet_img:

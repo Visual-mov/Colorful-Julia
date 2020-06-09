@@ -1,7 +1,7 @@
 # Colorful Julia Twitter Bot
 <img src="saves/image_12222019_203050.png" alt="Julia set" width="250"/>
 
-[Colorful Julia](https://botwiki.org/bot/colorful-julia/) is a Twitter bot that tweets random Julia sets. Along with the image itself, the tweet also includes information about the rendered Julia set, such as the maximum amount of iterations, value of c, and the colorization method. Colorful Julia uses the tweepy wrapper to communicate with the Twitter API.
+[Colorful Julia](https://botwiki.org/bot/colorful-julia/) is a Twitter bot that tweets random Julia sets. Along with the image itself, the tweet also includes information about the rendered Julia set. Such as the maximum amount of iterations, value of c, and the colorization method. Colorful Julia uses the tweepy wrapper to communicate with the Twitter API.
 
 [More information about Julia sets](https://en.wikipedia.org/wiki/Julia_set)
 
@@ -28,7 +28,7 @@ Run main script:
 **'--no_tweet'** - Will not tweet created image. No keys file is needed as well.
 
 ### Location for API keys
-If you intend for the bot to tweet the created image, a file containing the keys and access tokens named 'keys.txt' is needed. This file should be located in the repository's root directory (./Colorful-Julia/keys.txt).
+If you intend for the script to tweet the created image, a file containing the keys and access tokens for the Twitter API is needed. This file should be named `keys.txt` and located in the root directory of the repository (`./Colorful-Julia/keys.txt`).
 
 Formatting for this file is as follows, with each string separated by a newline:
 ```
@@ -39,7 +39,7 @@ Access token secret
 ```
 
 ## Hosting
-Currently, the bot is being hosted on a Raspberry Pi Zero. The main script is run every 30 minutes using a cron job.
+Currently the bot is being hosted on a Raspberry Pi Zero. The main script is run every 30 minutes using a cron job.
 ```
 */30 * * * * python3 ./Colorful-Julia/colorful_julia.py
 ```
