@@ -51,7 +51,7 @@ def main(argv):
         auth.set_access_token(keys[2],keys[3])
         api = tweepy.API(auth)
         try:
-            status = f"Julia set generated on {set.date_stamp} at {set.time_stamp} {tzname[0]}\nIterations: {iterations}\nColoring mode: \"{set.c_mode}\"\nc = {ca} + {cb}i"
+            status = f"Julia set generated on {set.date_stamp} at {set.time_stamp} {tzname[0]}\nIterations: {max_iterations}\nColoring mode: \"{set.c_mode}\"\nc = {ca} + {cb}i"
             api.update_with_media(f"{img_path}/{set.file_name}",status)
             print("Successfully tweeted.")
         except tweepy.TweepError as e:
